@@ -58,6 +58,9 @@ void mini_free(void* ptr) {
     if (!ptr) return;
 
     block_t* block = (block_t*) ((unsigned char*) ptr - sizeof(block_t));
+    if (block->free) {
+        return;
+    }
     block->free = 1;
 
     block_t* curr = free_list;
