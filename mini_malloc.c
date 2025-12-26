@@ -72,5 +72,38 @@ void mini_free(void* ptr) {
 }
 
 void mini_heap_stats() {
+    block_t* curr = free_list;
+    size_t used = 0;
+    size_t free = 0;
+    size_t largest_free = 0;
+    int allocs = 0;
+    int frees = 0;
 
+    while (curr) {
+        if (curr->free) {
+            free += curr->size;
+            frees++;
+            if (curr->size > largest_free) {
+                largest_free = curr->size;
+            }
+        } else {
+            used += curr->size;
+            allocs++;
+        }
+        curr = curr->next;
+    }
+
+    float fragmentation = 0;
+    if (free > 0) {
+        fragmentation = 100.0f * (1.0f - ((float) largest_free / (float) free));
+    }
+
+    printf("Mini Heap Stats:\n");
+    printf("Heap Size: %zu bytes\n", heap_size);
+    printf("Used Memory: %zu bytes\n", used);
+    printf("Free Memory: %zu bytes\n", free);
+    printf("Allocations: %d\n", allocs);
+    printf("Free Blocks: %d\n", frees);
+    printf("Largest Free Block: %zu bytes\n", largest_free);
+    printf("Fragmentation: %.2f%%\n", fragmentation);
 }
