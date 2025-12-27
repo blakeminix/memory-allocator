@@ -1,1 +1,2 @@
-# memory-allocator
+# Custom Memory Allocator (C)
+A fast First-Fit heap allocator built from scratch in C, using a fixed 512KB memory pool and a free-list-based allocation strategy. This project demonstrates core concepts in heap memory management, pointer arithmetic, alignment, block splitting, coalescing, fragmentation tracking, and allocator benchmarking.
